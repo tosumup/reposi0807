@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加员工</title>
+    <style>
+        #width {
+            width: 70%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        button {
+            padding: 5px 10px;
+            margin-right: 5px;
+        }
+
+        #btn {
+            position: relative;
+            left: 300px;
+        }
+
+        /* 自定义输入框样式 */
+        input[type="text"], input[type="date"] {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            outline: none; /* 去除输入框聚焦时的边框 */
+        }
+
+        /* 自定义提交按钮样式 */
+        button[type="submit"], button[type="reset"] {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            outline: none;
+        }
+    </style>
+    <script src="/day03_Demo/js/jquery-1.12.4.js"></script>
+</head>
+<body>
+
+<center>
+    <h1>添加员工</h1>
+</center>
+    <table align="center">
+        <tr>
+            <th>姓名</th>
+            <td><input type="text" name="name" id="name"></td>
+        </tr>
+        <tr>
+            <th>薪资</th>
+            <td><input type="text" name="salary" id="salary"></td>
+        </tr>
+        <tr>
+            <th>入职日期</th>
+            <td><input type="date" name="hireDate" id="hireDate"></td>
+        </tr>
+        <tr>
+            <th>所属部门编号</th>
+            <td><input type="text" name="departmentId" id="departmentId"></td>
+        </tr>
+    </table>
+    <center>
+        <button onclick="add()">添加</button>
+        <button type="reset">重置</button>
+    </center>
+
+</body>
+<script>
+    function add() {
+        $.get("/day03_Demo/emp?method=insert", {
+            "name": $("#name").val(),
+            "salary": $("#salary").val(),
+            "hireDate": $("#hireDate").val(),
+            "departmentId": $("#departmentId").val()
+        }, function (i) {
+            if (i==0) {
+                alert("添加失败")
+            }else {
+                location.href="/day03_Demo/emp/emp_list.html"
+            }
+        })
+    }
+</script>
+</html>
